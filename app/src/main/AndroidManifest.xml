@@ -39,7 +39,14 @@
         android:label="@string/app_name"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-
+        <!-- 全面屏适配 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
+        <!-- 华为适配 -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
         <activity
             android:name="com.my.torch.MainActivity"
             android:label="@string/app_name"
