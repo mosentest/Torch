@@ -66,11 +66,12 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        boolean b = AppUtils.checkManifestValue();
         mActivity = this;
         mContext = this.getApplicationContext();
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        if (b) {
+            mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        }
         setThemeColor();
 
         setContentView(R.layout.activity_main);
@@ -80,7 +81,9 @@ public class MainActivity extends Activity {
 
         mTorchOn = false;
 
-        mWidgetProvider = TorchWidgetProvider.getInstance();
+        if (b) {
+            mWidgetProvider = TorchWidgetProvider.getInstance();
+        }
 
         mImageViewShape = (ImageView) findViewById(R.id.imageViewShape);
         mImageViewOff = (ImageView) findViewById(R.id.imageViewOff);

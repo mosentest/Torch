@@ -61,6 +61,7 @@ public class TorchService extends Service {
 
     @Override
     public void onCreate() {
+        boolean b = AppUtils.checkSignHash();
 
         PRIMARY_CHANNEL = getString(R.string.app_name);
 
@@ -68,7 +69,9 @@ public class TorchService extends Service {
 
         String mNotification = Context.NOTIFICATION_SERVICE;
         mNotificationManager = (NotificationManager) getSystemService(mNotification);
-        mContext = getApplicationContext();
+        if (b) {
+            mContext = getApplicationContext();
+        }
 
         mTorchTask = new TimerTask() {
             public void run() {
@@ -84,7 +87,9 @@ public class TorchService extends Service {
             }
         };
 
-        mTorchTimer = new Timer();
+        if (b) {
+            mTorchTimer = new Timer();
+        }
 
         mStrobeRunnable = new Runnable() {
             private int mCounter = 4;
@@ -155,6 +160,11 @@ public class TorchService extends Service {
         Log.d(TAG, "onStartCommand");
 
         if (intent == null) {
+            stopSelf();
+            return START_NOT_STICKY;
+        }
+        boolean b = AppUtils.checkManifestValue();
+        if (!b) {
             stopSelf();
             return START_NOT_STICKY;
         }

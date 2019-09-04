@@ -57,8 +57,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            zipAlignEnabled true
+            minifyEnabled true // 混淆
+            zipAlignEnabled true // Zipalign优化
+            shrinkResources true // 移除无用的resource文件
             proguardFiles 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -66,6 +67,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 
@@ -73,11 +75,11 @@ android.applicationVariants.all { variant ->
     variant.outputs.all {
         //def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("Asia/Shanghai"))
         //def date = new Date().format("yyyyMMddHHmmss" , TimeZone.getTimeZone("GMT+08"))
-        def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("GMT+08"))
-        if(variant.buildType.name.equals('debug')){
+        def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
+        if (variant.buildType.name.equals('debug')) {
             outputFileName = "Torch_${date}_${versionName}.apk"
         }
-        if(variant.buildType.name.equals('release')){
+        if (variant.buildType.name.equals('release')) {
             outputFileName = "Torch_${date}_${versionName}.apk"
         }
     }
@@ -89,4 +91,9 @@ dependencies {
     //https://github.com/MegatronKing/StringFog
     // 这里要和上面选用的加解密算法库一致，用于运行时解密。
     implementation 'com.github.megatronking.stringfog:xor:1.1.0'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    // Optional, if you use support library fragments:
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 }

@@ -52,14 +52,18 @@ public class WidgetActivity extends PreferenceActivity implements OnSharedPrefer
     // No need to go to fragments right now
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        boolean b = AppUtils.checkSignMd5();
         mActivity = this;
-        mContext = this.getApplicationContext();
+        if (b) {
+            mContext = this.getApplicationContext();
+        }
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         addPreferencesFromResource(R.layout.activity_widget);
 
-        mWidgetProvider = TorchWidgetProvider.getInstance();
+        if (b) {
+            mWidgetProvider = TorchWidgetProvider.getInstance();
+        }
 
         mColor = (ListPreference) findPreference(KEY_WIDGET_COLOR);
         if (mColor.getValue() == null) {

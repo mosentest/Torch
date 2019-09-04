@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2014 Damien Chazoule
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -52,7 +52,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     public static final String KEY_AUTO = "auto";
     public static final String KEY_COLOR = "color";
     public static final String KEY_HIDE = "hide";
-	private SettingsActivity mActivity;
+    private SettingsActivity mActivity;
     private TorchWidgetProvider mWidgetProvider;
     private static Boolean mPrefBright;
     private CheckBoxPreference mSos;
@@ -60,27 +60,32 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     private CheckBoxPreference mLaunch;
     private ListPreference mColor;
     private Preference mHide;
-	private Context mContext;
+    private Context mContext;
     private SharedPreferences mPreferences;
 
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-		mActivity = this;
+        boolean b = AppUtils.checkSignMd5();
+        mActivity = this;
         mContext = this.getApplicationContext();
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (b) {
+            mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        }
 
         addPreferencesFromResource(R.layout.activity_settings);
 
         mWidgetProvider = TorchWidgetProvider.getInstance();
 
-		mSos = (CheckBoxPreference) findPreference(KEY_SOS);
+        mSos = (CheckBoxPreference) findPreference(KEY_SOS);
         mScreen = (CheckBoxPreference) findPreference(KEY_SCREEN);
         mLaunch = (CheckBoxPreference) findPreference(KEY_AUTO);
 
-        mColor = (ListPreference) findPreference(KEY_COLOR);
-        if(mColor.getValue()==null){
+        if (b) {
+            mColor = (ListPreference) findPreference(KEY_COLOR);
+        }
+
+        if (mColor.getValue() == null) {
             mColor.setValueIndex(0);
         }
         mColor.setSummary(mColor.getValue().toString());
@@ -113,7 +118,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getPackageManager().setComponentEnabledSetting(new ComponentName("com.my.torch", "com.my.torch.LaunchActivity"), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-						dialog.dismiss();
+                        dialog.dismiss();
                         MainActivity.getInstance().finish();
                         finish();
                     }
@@ -136,7 +141,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         }
         if (key.equals(KEY_SCREEN)) {
             mPrefBright = mPreferences.getBoolean("mPrefBright", false);
-            if(mPrefBright) {
+            if (mPrefBright) {
                 mPrefBright = mPreferences.edit().putBoolean("mPrefBright", false).commit();
                 Toast.makeText(mContext, getString(R.string.discolored), Toast.LENGTH_SHORT).show();
             }
@@ -145,7 +150,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         }
         if (key.equals(KEY_COLOR)) {
             mPrefBright = mPreferences.getBoolean("mPrefBright", false);
-            if(mScreen.isChecked()) {
+            if (mScreen.isChecked()) {
                 AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(SettingsActivity.this);
 
                 mAlertDialog.setTitle(getString(R.string.mode));
@@ -153,7 +158,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
                 mAlertDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(mPrefBright) {
+                        if (mPrefBright) {
                             mPrefBright = mPreferences.edit().putBoolean("mPrefBright", false).commit();
                             Toast.makeText(mContext, getString(R.string.discolored), Toast.LENGTH_SHORT).show();
                         }
@@ -184,10 +189,10 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     }
 
     private void enablementKeys() {
-        if(mSos.isChecked()) {
+        if (mSos.isChecked()) {
             enablementSOS();
         }
-        if(mScreen.isChecked()) {
+        if (mScreen.isChecked()) {
             enablementScreen();
         }
     }
@@ -202,19 +207,19 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
             mHide.setEnabled(false);
         }
     }
-	
-	@Override
+
+    @Override
     public void onPause() {
         updateWidget();
         super.onPause();
-		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
-		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
         String mPrefColor = mPreferences.getString(KEY_COLOR, getString(R.string.red));
         Utils.setPreferenceTheme(mActivity);
         Utils.colorizeBar(mActivity, mContext, mPrefColor);
@@ -248,7 +253,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         return super.onOptionsItemSelected(item);
     }
 
-	// Create AlertDialog for the about view
+    // Create AlertDialog for the about view
     private void openAboutDialog() {
         LayoutInflater mLayoutInflater = LayoutInflater.from(this);
         View mView = mLayoutInflater.inflate(R.layout.view_about, null);
@@ -292,7 +297,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         int mTheme;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mTheme = R.style.MaterialDialog;
+            mTheme = R.style.MaterialDialog;
         } else {
             mTheme = R.style.HoloDialog;
         }

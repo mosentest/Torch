@@ -75,8 +75,8 @@
 
 # 保留support下的所有类及其内部类
 -keep class android.support.** {*;}
--keep class android.arch.** {*;}
--keep class androidx.** {*;}
+#-keep class android.arch.** {*;}
+#-keep class androidx.** {*;}
 
 # 保留继承的
 -keep public class * extends android.support.v4.**
