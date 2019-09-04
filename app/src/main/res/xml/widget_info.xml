@@ -26,7 +26,7 @@
     android:previewImage="@drawable/preview"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen|keyguard"
-    android:configure="com.doomy.torch.WidgetActivity"
+    android:configure="com.my.torch.WidgetActivity"
     android:initialLayout="@layout/widget" >
 	
 </appwidget-provider>

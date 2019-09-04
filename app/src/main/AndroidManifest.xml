@@ -18,42 +18,37 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.doomy.torch" >
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.my.torch">
 
     <uses-feature
-        android:name="android.hardware.camera" android:required="false" />
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-feature
-        android:name="android.hardware.camera.flash" android:required="false" />
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
 
-    <uses-permission
-        android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.WAKE_LOCK" />
-    <uses-permission
-        android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
 
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.my.torch.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity-alias
-            android:name=".LaunchActivity"
-            android:label="@string/app_name"
+            android:name="com.my.torch.LaunchActivity"
             android:enabled="true"
-            android:targetActivity="com.doomy.torch.MainActivity" >
+            android:label="@string/app_name"
+            android:targetActivity="com.my.torch.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,26 +57,25 @@
         </activity-alias>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.my.torch.SettingsActivity"
             android:label="@string/settings"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".WidgetActivity"
+            android:name="com.my.torch.WidgetActivity"
             android:label="@string/widget"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
 
         <receiver
-            android:name=".TorchWidgetProvider"
+            android:name="com.my.torch.TorchWidgetProvider"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.doomy.torch.TORCH_STATE_CHANGED" />
+                <action android:name="com.my.torch.TORCH_STATE_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -89,15 +83,15 @@
         </receiver>
 
         <service
-            android:name=".TorchService"
+            android:name="com.my.torch.TorchService"
             android:enabled="true" />
 
         <receiver
-            android:name=".TorchSwitch"
+            android:name="com.my.torch.TorchSwitch"
             android:enabled="true"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="com.doomy.torch.TOGGLE_FLASHLIGHT" />
+                <action android:name="com.my.torch.TOGGLE_FLASHLIGHT" />
             </intent-filter>
         </receiver>
     </application>

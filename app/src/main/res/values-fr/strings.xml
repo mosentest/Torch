@@ -39,6 +39,7 @@
     <string name="screen">Écran</string>
     <string name="sos">SOS</string>
     <string name="settings">Paramètres</string>
+    <string name="goSettings">Aller Paramètres</string>
     <string name="title">Cacher l\'icône ?</string>
     <string name="torch_title">Lampe torche allumé</string>
     <string name="torch_toggle">Touchez pour éteindre</string>

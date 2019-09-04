@@ -19,7 +19,7 @@ This includes features like :
 
 # QR Code
 
-<a href="https://play.google.com/store/apps/details?id=com.doomy.torch">
+<a href="https://play.google.com/store/apps/details?id=com.my.torch">
   <img alt="QR Code Torch"
        src="https://raw.githubusercontent.com/MrDoomy/Torch/master/dev/images/qrcode.png" />
 </a>
