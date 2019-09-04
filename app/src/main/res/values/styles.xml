@@ -47,14 +47,15 @@
         <item name="android:colorPrimary">@color/red</item>
         <item name="android:colorPrimaryDark">@color/redDark</item>
         <item name="android:textColor">@color/greyDark</item>
-        <item name="android:subtitle">@color/greyMaterialDark</item>
+        <item name="android:windowBackground">@color/blueGrey</item>
+        <item name="android:colorBackgroundCacheHint">@color/blueGrey</item>
     </style>
 
     <style name="Holo" parent="android:Theme.Holo">
         <item name="android:icon">@android:color/transparent</item>
-        <item name="android:windowBackground">@color/greyMaterialDark</item>
         <item name="android:textColor">@color/greyDark</item>
-        <item name="android:subtitle">@color/greyMaterialDark</item>
+        <item name="android:windowBackground">@color/blueGrey</item>
+        <item name="android:colorBackgroundCacheHint">@color/blueGrey</item>
     </style>
 
 </resources>

@@ -18,8 +18,10 @@
 package com.my.torch;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -293,7 +295,18 @@ public class MainActivity extends Activity {
             PermissionUtil.getCamera(this, new PermissionUtil.CallBack() {
                 @Override
                 public void granted(List<String> data) {
-                    Utils.deviceHasCameraFlash(mContext);
+                    AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(MainActivity.this, setThemeDialog());
+                    mAlertDialog.setTitle(getString(R.string.hello));
+                    mAlertDialog.setMessage(getString(R.string.first));
+                    mAlertDialog.setPositiveButton(getString(R.string.okay),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Utils.deviceHasCameraFlash(mContext);
+                                    dialog.dismiss();
+                                }
+                            });
+                    mAlertDialog.show();
                     getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("mValue", false).commit();
                 }
             });

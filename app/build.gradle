@@ -68,6 +68,21 @@ android {
     }
 }
 
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        //def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("Asia/Shanghai"))
+        //def date = new Date().format("yyyyMMddHHmmss" , TimeZone.getTimeZone("GMT+08"))
+        def date = new Date().format("yyyyMMdd" , TimeZone.getTimeZone("GMT+08"))
+        if(variant.buildType.name.equals('debug')){
+            outputFileName = "Torch_${date}_${versionName}.apk"
+        }
+        if(variant.buildType.name.equals('release')){
+            outputFileName = "Torch_${date}_${versionName}.apk"
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.yanzhenjie.permission:support:2.0.1'
