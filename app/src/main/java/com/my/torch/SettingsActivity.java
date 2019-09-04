@@ -52,7 +52,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     public static final String KEY_AUTO = "auto";
     public static final String KEY_COLOR = "color";
     public static final String KEY_HIDE = "hide";
-	private static SettingsActivity mActivity;
+	private SettingsActivity mActivity;
     private TorchWidgetProvider mWidgetProvider;
     private static Boolean mPrefBright;
     private CheckBoxPreference mSos;

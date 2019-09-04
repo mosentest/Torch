@@ -76,9 +76,7 @@ public class PermissionUtil {
 
 
     private static int setThemeDialog() {
-
         int mTheme;
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mTheme = R.style.MaterialDialog;
         } else {

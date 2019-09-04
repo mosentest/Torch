@@ -19,8 +19,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/red">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/imageViewMrDoomy"
@@ -67,6 +66,7 @@
 
     <ImageView
         android:id="@+id/imageViewGitHub"
+        android:visibility="gone"
         android:layout_width="@dimen/size_github"
         android:layout_height="@dimen/size_github"
         android:layout_below="@+id/textViewCopyright"

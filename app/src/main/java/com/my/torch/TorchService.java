@@ -1,16 +1,16 @@
 /**
  * Copyright (C) 2014 Damien Chazoule
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -18,20 +18,27 @@
 package com.my.torch;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TorchService extends Service {
+
+
+    private String PRIMARY_CHANNEL;
 
     // Declaring your view and variables
     private static final String TAG = "TorchService";
@@ -52,10 +59,13 @@ public class TorchService extends Service {
     private Context mContext;
     private SharedPreferences mPreferences;
 
-	@Override
+    @Override
     public void onCreate() {
+
+        PRIMARY_CHANNEL = getString(R.string.app_name);
+
         Log.d(TAG, "onCreate");
-		
+
         String mNotification = Context.NOTIFICATION_SERVICE;
         mNotificationManager = (NotificationManager) getSystemService(mNotification);
         mContext = getApplicationContext();
@@ -73,11 +83,12 @@ public class TorchService extends Service {
                 }
             }
         };
-		
+
         mTorchTimer = new Timer();
 
         mStrobeRunnable = new Runnable() {
-			private int mCounter = 4;
+            private int mCounter = 4;
+
             public void run() {
                 int mFlashMode = FlashDevice.ON;
                 if (FlashDevice.getInstance(mContext).getFlashMode() == FlashDevice.STROBE) {
@@ -142,7 +153,7 @@ public class TorchService extends Service {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand");
-		
+
         if (intent == null) {
             stopSelf();
             return START_NOT_STICKY;
@@ -172,10 +183,25 @@ public class TorchService extends Service {
 
         PendingIntent mTurnOff = PendingIntent.getBroadcast(this, 0,
                 new Intent(TorchSwitch.TOGGLE_FLASHLIGHT), 0);
-		PendingIntent mContentIntent = PendingIntent.getActivity(this, 0, 
-				new Intent(this, MainActivity.class), 0);
+        PendingIntent mContentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class), 0);
 
-        Notification mNotification = new Notification.Builder(this)
+        Notification mNotification = null;
+        NotificationCompat.Builder builder = null;
+        //适配8.0通知栏
+        //https://blog.csdn.net/longsh_/article/details/80095510
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String mPrefColor = mPreferences.getString(SettingsActivity.KEY_COLOR, getString(R.string.red));
+            NotificationChannel chan1 = new NotificationChannel(PRIMARY_CHANNEL,
+                    "Primary Channel", NotificationManager.IMPORTANCE_DEFAULT);
+            chan1.setLightColor(Utils.getPrefColor(this, mPrefColor));
+            chan1.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+            mNotificationManager.createNotificationChannel(chan1);
+            builder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL);
+        } else {
+            builder = new NotificationCompat.Builder(this);
+        }
+        mNotification = builder
                 .setSmallIcon(R.drawable.ic_on)
                 .setTicker(getString(R.string.torch_title))
                 .setContentTitle(getString(R.string.torch_title))
@@ -191,7 +217,7 @@ public class TorchService extends Service {
         return START_STICKY;
     }
 
-	@Override
+    @Override
     public void onDestroy() {
         mNotificationManager.cancelAll();
         stopForeground(true);

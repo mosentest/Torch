@@ -26,10 +26,10 @@
     <string name="auto">Automatic</string>
     <string name="color">Color</string>
     <string name="colorful">Colorful screen</string>
-    <string name="copyright" translatable="false">Copyright &#169; 2019 zheng </string>
+    <string name="copyright" translatable="false">Copyright &#169; 2019 mo </string>
     <string name="choose">Choose your color</string>
     <string name="custom">Customization</string>
-	<string name="developer">Torch for Android devices is built with love using open source software.</string>
+	<string name="developer">Torch for Android.</string>
     <string name="disabled">Disabled</string>
     <string name="discolored">Screen discolored</string>
     <string name="enabled">Enabled</string>
@@ -47,7 +47,7 @@
     <string name="title">Hide the icon ?</string>
     <string name="torch_title">Torch on</string>
     <string name="torch_toggle">Touch to turn off</string>
-    <string name="url" translatable="false">https://github.com/MrDoomy/Torch</string>
+    <string name="url" translatable="false">https://github.com</string>
     <string name="widget" translatable="false">Widget</string>
     <string name="yes">Yes</string>
     <string name="red">Red</string>

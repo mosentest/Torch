@@ -13,3 +13,5 @@ This includes features like :
 - android.permission.CAMERA
 - android.permission.WAKE_LOCK
 - android.permission.BROADCAST_STICKY
+
+from：https://github.com/MrDoomy/Torch
