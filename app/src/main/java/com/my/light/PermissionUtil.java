@@ -52,18 +52,24 @@ public class PermissionUtil {
                 .rationale(new Rationale<List<String>>() {
                     @Override
                     public void showRationale(Context context, List<String> data, final RequestExecutor executor) {
-                        AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(activity, setThemeDialog());
-                        mAlertDialog.setTitle(activity.getString(R.string.hello));
-                        mAlertDialog.setMessage(activity.getString(R.string.first));
-                        mAlertDialog.setPositiveButton(activity.getString(R.string.okay),
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        executor.execute();
-                                        dialog.dismiss();
-                                    }
-                                });
-                        mAlertDialog.show();
+                        boolean b = AndPermission.hasPermissions(activity, Permission.Group.CAMERA);
+                        if (b) {
+                            callBack.granted(data);
+                        } else {
+                            AlertDialog.Builder mAlertDialog = new AlertDialog.Builder(activity, setThemeDialog());
+                            mAlertDialog.setTitle(activity.getString(R.string.hello));
+                            mAlertDialog.setMessage(activity.getString(R.string.first));
+                            mAlertDialog.setPositiveButton(activity.getString(R.string.okay),
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            executor.execute();
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            mAlertDialog.show();
+                        }
+
                     }
                 })
                 .start();

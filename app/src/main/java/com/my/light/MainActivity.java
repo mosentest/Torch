@@ -20,6 +20,7 @@ package com.my.light;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -126,7 +127,13 @@ public class MainActivity extends Activity {
         Log.d(TAG, "onCreateIntent");
         Intent mIntent = new Intent(TorchSwitch.TOGGLE_FLASHLIGHT);
         mIntent.putExtra("sos", mPreferences.getBoolean(SettingsActivity.KEY_SOS, false));
-        mIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            mIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        }
+        //MyReceiver文件所在路径。和黄线一样
+        //包名。 和红线一样
+        //https://www.jianshu.com/p/c0b59bf1e594
+        mIntent.setComponent(new ComponentName(getPackageName(), TorchSwitch.class.getName()));
         getApplicationContext().sendBroadcast(mIntent);
     }
 

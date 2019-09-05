@@ -102,6 +102,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="com.my.light.TOGGLE_FLASHLIGHT" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
     </application>
