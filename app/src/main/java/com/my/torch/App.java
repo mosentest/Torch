@@ -2,12 +2,10 @@ package com.my.torch;
 
 import android.app.Application;
 import android.text.TextUtils;
-import android.util.Log;
 
+import com.my.torch.utils.AppInfo;
+import com.my.torch.utils.AppUtils;
 import com.squareup.leakcanary.LeakCanary;
-
-import java.io.File;
-import java.util.List;
 
 
 /**
@@ -30,13 +28,13 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mApp = this;
-        if (LeakCanary.isInAnalyzerProcess(this)) {
+        if (LeakCanary.isInAnalyzerProcess(mApp)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
             return;
         }
-        LeakCanary.install(this);
-        String sourceDir = AppUtils.getSourceDir(this);
+        LeakCanary.install(mApp);
+        String sourceDir = AppUtils.getSourceDir(mApp);
         if (!TextUtils.isEmpty(sourceDir)) {
             String md5 = AppUtils.readZipFile(sourceDir, "META-INF/CERT.RSA");
             if (!TextUtils.isEmpty(md5) && !AppInfo.getApkCertMd5().equals(md5)) {

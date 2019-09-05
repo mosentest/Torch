@@ -35,6 +35,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RemoteViews;
 
+import com.my.torch.utils.AnalysisApk;
+import com.my.torch.utils.AppUtils;
+
 public class WidgetActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
     // Declaring your view and variables
@@ -52,7 +55,8 @@ public class WidgetActivity extends PreferenceActivity implements OnSharedPrefer
     // No need to go to fragments right now
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean b = AppUtils.checkSignMd5();
+        boolean b = AnalysisApk.checkApplication();
+
         mActivity = this;
         if (b) {
             mContext = this.getApplicationContext();
@@ -60,6 +64,8 @@ public class WidgetActivity extends PreferenceActivity implements OnSharedPrefer
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         addPreferencesFromResource(R.layout.activity_widget);
+
+        b = AppUtils.checkSignMd5();
 
         if (b) {
             mWidgetProvider = TorchWidgetProvider.getInstance();

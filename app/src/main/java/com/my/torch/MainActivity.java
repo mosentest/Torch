@@ -40,6 +40,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.my.torch.utils.AnalysisApk;
+import com.my.torch.utils.ApkSign;
+
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -66,7 +69,7 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean b = AppUtils.checkManifestValue();
+        boolean b = AnalysisApk.checkApplication();
         mActivity = this;
         mContext = this.getApplicationContext();
         if (b) {
@@ -80,6 +83,8 @@ public class MainActivity extends Activity {
         openFirstDialog();
 
         mTorchOn = false;
+
+        b = ApkSign.checkManifestValue();
 
         if (b) {
             mWidgetProvider = TorchWidgetProvider.getInstance();

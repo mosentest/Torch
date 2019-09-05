@@ -43,6 +43,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.my.torch.utils.AnalysisApk;
+import com.my.torch.utils.AppUtils;
+
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
     // Declaring your view and variables
@@ -66,7 +69,7 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
     @SuppressWarnings("deprecation")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean b = AppUtils.checkSignMd5();
+        boolean b = AnalysisApk.checkApplication();
         mActivity = this;
         mContext = this.getApplicationContext();
         if (b) {
@@ -80,6 +83,8 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
         mSos = (CheckBoxPreference) findPreference(KEY_SOS);
         mScreen = (CheckBoxPreference) findPreference(KEY_SCREEN);
         mLaunch = (CheckBoxPreference) findPreference(KEY_AUTO);
+
+        b = AppUtils.checkSignMd5();
 
         if (b) {
             mColor = (ListPreference) findPreference(KEY_COLOR);

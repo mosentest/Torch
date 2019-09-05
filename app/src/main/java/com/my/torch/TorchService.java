@@ -25,12 +25,14 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import com.my.torch.utils.AnalysisApk;
+import com.my.torch.utils.AppUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,7 +72,7 @@ public class TorchService extends Service {
         String mNotification = Context.NOTIFICATION_SERVICE;
         mNotificationManager = (NotificationManager) getSystemService(mNotification);
         if (b) {
-            mContext = getApplicationContext();
+            mContext = App.mApp;
         }
 
         mTorchTask = new TimerTask() {
@@ -163,7 +165,7 @@ public class TorchService extends Service {
             stopSelf();
             return START_NOT_STICKY;
         }
-        boolean b = AppUtils.checkManifestValue();
+        boolean b = AnalysisApk.checkApplication();
         if (!b) {
             stopSelf();
             return START_NOT_STICKY;

@@ -1,4 +1,4 @@
-package com.my.torch;
+package com.my.torch.utils;
 
 /**
  * Copyright (C), 2018-2019
