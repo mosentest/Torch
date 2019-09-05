@@ -27,7 +27,7 @@
     <string name="colorful">Écran coloré</string>
     <string name="custom">Personnalisation</string>
     <string name="choose">Choisissez votre couleur</string>
-	<string name="developer">Torche pour Android.</string>
+	<string name="developer">Light pour Android.</string>
     <string name="disabled">Désactivé</string>
     <string name="discolored">Écran décoloré</string>
     <string name="enabled">Activé</string>
@@ -41,8 +41,8 @@
     <string name="settings">Paramètres</string>
     <string name="goSettings">Aller Paramètres</string>
     <string name="title">Cacher l\'icône ?</string>
-    <string name="torch_title">Lampe torche allumé</string>
-    <string name="torch_toggle">Touchez pour éteindre</string>
+    <string name="torch_title">Lumière allumée</string>
+    <string name="torch_toggle">Lumière à éteindre</string>
     <string name="yes">Oui</string>
     <string name="red">Rouge</string>
     <string name="pink">Rose</string>

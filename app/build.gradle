@@ -9,7 +9,7 @@ stringfog {
     // 加解密库的实现类路径，需和上面配置的加解密算法库一致。
     implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
     // 指定需加密的代码包路径，可配置多个，未指定将默认全部加密。
-    fogPackages = ['com.my.torch', 'com.yanzhenjie.permission']
+    fogPackages = ['com.my.light', 'com.yanzhenjie.permission']
 }
 
 //https://www.cnblogs.com/details-666/p/keystore.html
@@ -37,7 +37,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.my.torch"
+        applicationId "com.my.light"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 12
@@ -77,10 +77,10 @@ android.applicationVariants.all { variant ->
         //def date = new Date().format("yyyyMMddHHmmss" , TimeZone.getTimeZone("GMT+08"))
         def date = new Date().format("yyyyMMdd", TimeZone.getTimeZone("GMT+08"))
         if (variant.buildType.name.equals('debug')) {
-            outputFileName = "Torch_${date}_${versionName}.apk"
+            outputFileName = "light_${date}_${versionName}.apk"
         }
         if (variant.buildType.name.equals('release')) {
-            outputFileName = "Torch_${date}_${versionName}.apk"
+            outputFileName = "light_${date}_${versionName}.apk"
         }
     }
 }

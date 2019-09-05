@@ -56,7 +56,7 @@
         <ListPreference
             android:key="color"
             android:title="@string/color"
-            android:defaultValue="@string/red"
+            android:defaultValue="@string/yellow"
             android:entries="@array/colors"
             android:entryValues="@array/colors"
             android:dialogTitle="@string/choose" />

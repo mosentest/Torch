@@ -20,8 +20,8 @@
 <resources>
 
     <style name="MaterialDialog" parent="android:Theme.Material.Light.Dialog.Alert">
-        <item name="android:textColor">@color/red</item>
-        <item name="android:colorAccent">@color/red</item>
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:colorAccent">@color/yellowDark</item>
     </style>
 
     <style name="HoloDialog" parent="android:Theme.Holo.Light.Dialog">
@@ -44,8 +44,8 @@
     </style>
 
     <style name="Material" parent="android:Theme.Material">
-        <item name="android:colorPrimary">@color/red</item>
-        <item name="android:colorPrimaryDark">@color/redDark</item>
+        <item name="android:colorPrimary">@color/yellow</item>
+        <item name="android:colorPrimaryDark">@color/yellowDark</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:windowBackground">@color/blueGrey</item>
         <item name="android:colorBackgroundCacheHint">@color/blueGrey</item>
