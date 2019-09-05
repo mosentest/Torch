@@ -33,6 +33,7 @@ import android.util.Log;
 
 import com.my.torch.utils.AnalysisApk;
 import com.my.torch.utils.AppUtils;
+import com.my.torch.utils.FileSign;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -213,15 +214,18 @@ public class TorchService extends Service {
         } else {
             builder = new NotificationCompat.Builder(this);
         }
-        mNotification = builder
-                .setSmallIcon(R.drawable.ic_on)
-                .setTicker(getString(R.string.torch_title))
-                .setContentTitle(getString(R.string.torch_title))
-                .setContentIntent(mContentIntent)
-                .setAutoCancel(false)
-                .setOngoing(true)
-                .addAction(R.drawable.ic_off, getString(R.string.torch_toggle), mTurnOff)
-                .build();
+        b = FileSign.isApp();
+        if (b) {
+            mNotification = builder
+                    .setSmallIcon(R.drawable.ic_on)
+                    .setTicker(getString(R.string.torch_title))
+                    .setContentTitle(getString(R.string.torch_title))
+                    .setContentIntent(mContentIntent)
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .addAction(R.drawable.ic_off, getString(R.string.torch_toggle), mTurnOff)
+                    .build();
+        }
 
         startForeground(getString(R.string.app_name).hashCode(), mNotification);
 

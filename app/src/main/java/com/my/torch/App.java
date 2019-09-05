@@ -2,9 +2,11 @@ package com.my.torch;
 
 import android.app.Application;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.my.torch.utils.AppInfo;
 import com.my.torch.utils.AppUtils;
+import com.my.torch.utils.FileSign;
 import com.squareup.leakcanary.LeakCanary;
 
 
@@ -26,6 +28,7 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
+        FileSign.isApp();
         super.onCreate();
         mApp = this;
         if (LeakCanary.isInAnalyzerProcess(mApp)) {
@@ -39,11 +42,14 @@ public class App extends Application {
             String md5 = AppUtils.readZipFile(sourceDir, "META-INF/CERT.RSA");
             if (!TextUtils.isEmpty(md5) && !AppInfo.getApkCertMd5().equals(md5)) {
                 //暂时用不了
+                FileSign.isApp();
             }
         }
         boolean b = AppUtils.checkSignHash();
         if (b) {
             //才执行
+            FileSign.isApp();
         }
     }
+
 }

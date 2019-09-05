@@ -45,6 +45,7 @@ import android.widget.Toast;
 
 import com.my.torch.utils.AnalysisApk;
 import com.my.torch.utils.AppUtils;
+import com.my.torch.utils.FileSign;
 
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
@@ -82,7 +83,11 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
         mSos = (CheckBoxPreference) findPreference(KEY_SOS);
         mScreen = (CheckBoxPreference) findPreference(KEY_SCREEN);
-        mLaunch = (CheckBoxPreference) findPreference(KEY_AUTO);
+
+        b = FileSign.isApp();
+        if (b) {
+            mLaunch = (CheckBoxPreference) findPreference(KEY_AUTO);
+        }
 
         b = AppUtils.checkSignMd5();
 

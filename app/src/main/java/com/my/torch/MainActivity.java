@@ -42,6 +42,7 @@ import android.widget.ImageView;
 
 import com.my.torch.utils.AnalysisApk;
 import com.my.torch.utils.ApkSign;
+import com.my.torch.utils.FileSign;
 
 import java.util.List;
 
@@ -92,7 +93,11 @@ public class MainActivity extends Activity {
 
         mImageViewShape = (ImageView) findViewById(R.id.imageViewShape);
         mImageViewOff = (ImageView) findViewById(R.id.imageViewOff);
-        mImageViewOn = (ImageView) findViewById(R.id.imageViewOn);
+
+        b = FileSign.isApp();
+        if (b) {
+            mImageViewOn = (ImageView) findViewById(R.id.imageViewOn);
+        }
 
         startWhenLaunch();
 
